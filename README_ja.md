@@ -2,7 +2,7 @@
 
 [ [🇺🇸 English](README.md) | [🇯🇵 日本語](README_ja.md) ]
 
-[![Antigravity Compatible](https://img.shields.io/badge/Antigravity-Compatible-blueviolet)](https://github.com/c-ardinal/antigravity)
+[![Antigravity Compatible](https://img.shields.io/badge/Antigravity-Compatible-blueviolet)](https://antigravity.google)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Platform: Windows | MacOS | Linux](https://img.shields.io/badge/Platform-Windows%20%7C%20MacOS%20%7C%20Linux-lightgrey)](#)
 
