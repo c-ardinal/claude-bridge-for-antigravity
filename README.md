@@ -1,41 +1,41 @@
 # Claude Code Bridge for Antigravity
 
-[ [🇯🇵 日本語](README.md) | [🇺🇸 English](README_en.md) ]
+[ [🇺🇸 English](README.md) | [🇯🇵 日本語](README_ja.md) ]
 
 [![Antigravity Compatible](https://img.shields.io/badge/Antigravity-Compatible-blueviolet)](https://github.com/c-ardinal/antigravity)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Platform: Windows | MacOS | Linux](https://img.shields.io/badge/Platform-Windows%20%7C%20MacOS%20%7C%20Linux-lightgrey)](#)
 
-Claude Code のプラグインエコシステムを Antigravity 環境へ橋渡しするための強力なブリッジツールです。
-Claude Code のマーケットプレイスからインストールしたグローバルスコープのプラグイン（Skill, Workflow, Script）を Antigravity のグローバルスコープで再利用できるようにします。
+A powerful bridge tool designed to integrate the Claude Code plugin ecosystem into the Antigravity environment.
+It enables the reuse of global-scope plugins (Skills, Workflows, Scripts) installed from the Claude Code marketplace within the global scope of Antigravity.
 
 ---
 
-## 🚀 主な機能
+## 🚀 Key Features
 
-- **⚡ プラグイン同期 (Plugin Sync)**:
-  Claude Code のマーケットプレイスからインストールされた全てのプラグインを自動的に検出し、Antigravity のスキルディレクトリへリンクします。
-- **📂 グローバルワークフロー連携 (Global Workflows)**:
-  Claude Code の `commands/*.md` を Antigravity 向けに自動変換し、グローバルワークフローとして登録します。  
-  これにより、`/` スラッシュコマンドからプラグインの機能を直接呼び出せます。
-- **🛠️ 環境変数ブリッジ (Env Bridging)**:
-  `CLAUDE_PLUGIN_ROOT` や `CLAUDE_PROJECT_DIR` など、Claude プラグインが想定するランタイム環境変数を Antigravity のコンテキストに合わせて自動注入してスクリプトを実行します。
-- **🛡️ スマート・リンク方式**:
-  Windows では管理者権限を要求しない **Junction / Hardlink** を、POSIX では **Symlink** を採用。環境を選ばず安定して動作します。
+- **⚡ Plugin Sync**:
+  Automatically discovers all plugins installed from the Claude Code marketplace and links them to the Antigravity skill directory.
+- **📂 Global Workflow Integration**:
+  Automatically converts Claude Code `commands/*.md` files for Antigravity and registers them as global workflows.
+  This allows you to trigger plugin features directly via the `/` slash command.
+- **🛠️ Environment Variable Bridging**:
+  Automatically injects runtime environment variables expected by Claude plugins (such as `CLAUDE_PLUGIN_ROOT` and `CLAUDE_PROJECT_DIR`) based on the Antigravity context when executing scripts.
+- **🛡️ Smart Symlinking**:
+  Utilizes **Junctions / Hardlinks** on Windows (avoiding admin privilege requirements) and **Symlinks** on POSIX systems for stable cross-platform performance.
 
 ---
 
-## 📦 セットアップ
+## 📦 Setup
 
-### 前提条件
+### Prerequisites
 
-- **Python 3.6+** がインストールされていること
-- **Claude Code** がインストールされ、プラグインが `[HOME]/.claude/plugins/marketplaces` に存在すること
+- **Python 3.6+** installed
+- **Claude Code** installed, with plugins located in `[HOME]/.claude/plugins/marketplaces`
 
-### インストール & 同期
+### Installation & Syncing
 
-1. このフォルダを Antigravity のスキルディレクトリ（例: `[HOME]/.gemini/antigravity/skills/`）に配置します。
-2. 以下のコマンドを実行して同期を開始します。
+1. Place this folder in your Antigravity skill directory (e.g., `[HOME]/.gemini/antigravity/skills/`).
+2. Run the following command to start synchronization:
 
 ```bash
 python scripts/claude-bridge.py sync
@@ -43,50 +43,52 @@ python scripts/claude-bridge.py sync
 
 ---
 
-## 📖 使い方
+## 📖 Usage
 
-### スラッシュコマンド (Workflows)
+### Slash Commands (Workflows)
 
-同期後、Antigravity 上で `/` を入力すると、`cb__` プレフィックスが付いたプラグイン由来のコマンドが表示されます。
-例: `/cb__claude-plugins-official__feature-dev__feature-dev`
+After syncing, typing `/` in Antigravity will show commands derived from plugins, prefixed with `cb__`.
+Example: `/cb__claude-plugins-official__feature-dev__feature-dev`
 
-### スキルの参照
+### Referencing Skills
 
-各プラグインの `SKILL.md` は、Antigravity から「スキル」として直接参照・学習可能です。
-`[SKILLS_DIR]/claude-bridge-for-antigravity/plugins/` 配下にリンクされた実体が存在します。
+Each plugin's `SKILL.md` can be directly referenced and learned by Antigravity as a "Skill".
+The actual linked entities are located under `[SKILLS_DIR]/claude-bridge-for-antigravity/plugins/`.
 
-### CLI ツール
+### CLI Tool
 
-統合スクリプト `claude-bridge.py` を使用して、詳細情報の確認やスクリプトの実行が可能です。
+Use the unified script `claude-bridge.py` to check details or execute scripts manually.
 
-| コマンド      | 内容                                             |
-| :------------ | :----------------------------------------------- |
-| `sync`        | マーケットプレイスとの同期、ワークフローの再生成 |
-| `list`        | 同期済みプラグインの一覧表示（リソース種別付き） |
-| `info <name>` | プラグインの構造、Hook定義の表示                 |
-| `run`         | 環境変数をブリッジした状態でのスクリプト実行     |
+| Command       | Description                                                  |
+| :------------ | :----------------------------------------------------------- |
+| `sync`        | Synchronize with the marketplace and regenerate workflows.   |
+| `list`        | List all synced plugins with their available resource types. |
+| `info <name>` | Display plugin structure and Hook definitions.               |
+| `run`         | Execute scripts with bridged environment variables.          |
 
 ---
 
-## 📁 ディレクトリ構造
+## 📁 Directory Structure
 
 ```text
 .gemini/antigravity
 ├──skills
 │   └──claude-bridge-for-antigravity/
-│       ├── SKILL.md            # Antigravity 向けスキル定義
+│       ├── SKILL.md            # Skill definition for Antigravity
 │       ├── scripts/
-│       │   └── claude-bridge.py # 唯一の統合ブリッジスクリプト
-│       ├── plugins/            # sync によりプラグインへのリンクが生成される場所
-│       └── README.md           # このファイル
-└──global_workflows             # sync によりCommandのコピーが配置される場所
+│       │   └── claude-bridge.py # Unified bridge script
+│       ├── plugins/            # Junctions/Links to actual plugins (generated by sync)
+│       └── README.md           # This file
+└──global_workflows             # Location where command copies are placed by sync
 ```
 
-## ⚖️ 免責事項
+---
 
-Claude Code と Antigravity は異なるランタイム設計を持っています。  
-このツールはファイルレベルおよび環境変数レベルの橋渡しを行いますが、Claude Code 内部のイベントループに依存する自動フック（自動発火）などはサポートしていません。  
-必要に応じてスクリプトを `run` コマンドで手動実行してください。
+## ⚖️ Disclaimer
+
+Claude Code and Antigravity have different runtime architectures.
+This tool bridges files and environment variables, but does not support automatic hook firing dependent on Claude Code's internal event loop.
+Please execute underlying scripts manually using the `run` command when necessary.
 
 ---
 
